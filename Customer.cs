@@ -19,14 +19,12 @@ namespace refactoring
             string result = "Rental Record for " + Name + "\n";
             foreach (var each in _rentals)
             {
-                var thisAmount = each.GetCharge();
-
                 frequentRenterPoints++;
 
                 if ((each.Movie.PriceCode == MovieType.NewRelease) && each.DaysRented > 1) frequentRenterPoints++;
 
-                result += "\t" + each.Movie.Title + "\t" + thisAmount + "\n";
-                totalAmount += thisAmount;
+                result += "\t" + each.Movie.Title + "\t" + each.GetCharge() + "\n";
+                totalAmount += each.GetCharge();
             }
 
             result += "Amount owed is " + totalAmount + "\n";

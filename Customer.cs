@@ -14,15 +14,15 @@ namespace refactoring
 
         public string Statement()
         {
-            string result = $"Rental Record for {Name}\n";
-            result += _rentals.Aggregate(string.Empty, (acc, r) => $"{acc}\t{r.Movie.Title}\t{r.Charge}\n");
-            result += $"Amount owed is {GetTotalAmount}\n";
-            result += $"You earned {FrequentRenterPoints} frequent renter points";
-            return result;
+            return $@"Rental Record for {Name}
+{AllRentalLines}
+Amount owed is {TotalAmount}
+You earned {FrequentRenterPoints} frequent renter points";
         }
 
+        private string AllRentalLines => _rentals.Aggregate(string.Empty, (acc, r) => $"{acc}\t{r.Movie.Title}\t{r.Charge}\n");
         private int FrequentRenterPoints => _rentals.Sum(rental => rental.FrequentRenterPoints);
-        private double GetTotalAmount => _rentals.Sum(rental => rental.Charge);
+        private double TotalAmount => _rentals.Sum(rental => rental.Charge);
 
         public string Name { get; }
     }

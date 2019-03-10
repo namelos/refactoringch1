@@ -24,5 +24,29 @@ namespace refactoring
         {
             get { return _title; }
         }
+        
+        public double GetCharge(int daysRented)
+        {
+            double thisAmount = 0;
+
+            switch (PriceCode)
+            {
+                case MovieType.Regular:
+                    thisAmount += 2;
+                    if (daysRented > 2)
+                        thisAmount += (daysRented - 2) * 1.5;
+                    break;
+                case MovieType.NewRelease:
+                    thisAmount += daysRented * 3;
+                    break;
+                case MovieType.Childrens:
+                    thisAmount += 1.5;
+                    if (daysRented > 3)
+                        thisAmount += (daysRented - 3) * 1.5;
+                    break;
+            }
+
+            return thisAmount;
+        }
     }
 }

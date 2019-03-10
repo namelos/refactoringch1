@@ -14,18 +14,22 @@ namespace refactoring
 
         public string Statement()
         {
-            int frequentRenterPoints = 0;
             string result = "Rental Record for " + Name + "\n";
             foreach (var each in _rentals)
             {
-                frequentRenterPoints += each.FrequentRenterPoints;
-
                 result += "\t" + each.Movie.Title + "\t" + each.Charge + "\n";
             }
 
             result += "Amount owed is " + GetTotalAmount() + "\n";
-            result += "You earned " + frequentRenterPoints + " frequent renter points";
+            result += "You earned " + FrequentRenterPoints() + " frequent renter points";
             return result;
+        }
+
+        private int FrequentRenterPoints()
+        {
+            int frequentRenterPoints = 0;
+            foreach (var each in _rentals) frequentRenterPoints += each.FrequentRenterPoints;
+            return frequentRenterPoints;
         }
 
         private double GetTotalAmount()

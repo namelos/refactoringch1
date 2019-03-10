@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace refactoring
 {
@@ -25,19 +26,8 @@ namespace refactoring
             return result;
         }
 
-        private int FrequentRenterPoints()
-        {
-            int frequentRenterPoints = 0;
-            foreach (var each in _rentals) frequentRenterPoints += each.FrequentRenterPoints;
-            return frequentRenterPoints;
-        }
-
-        private double GetTotalAmount()
-        {
-            double totalAmount = 0;
-            foreach (var each in _rentals) totalAmount += each.Charge;
-            return totalAmount;
-        }
+        private int FrequentRenterPoints() => _rentals.Sum(rental => rental.FrequentRenterPoints);
+        private double GetTotalAmount() => _rentals.Sum(rental => rental.Charge);
 
         public string Name
         {

@@ -19,7 +19,7 @@ namespace refactoring
             string result = "Rental Record for " + Name + "\n";
             foreach (var each in _rentals)
             {
-                var thisAmount = AmountFor(each);
+                var thisAmount = each.GetCharge();
 
                 frequentRenterPoints++;
 
@@ -32,30 +32,6 @@ namespace refactoring
             result += "Amount owed is " + totalAmount + "\n";
             result += "You earned " + frequentRenterPoints + " frequent renter points";
             return result;
-        }
-
-        private double AmountFor(Rental aRental)
-        {
-            double thisAmount = 0;
-
-            switch (aRental.Movie.PriceCode)
-            {
-                case MovieType.Regular:
-                    thisAmount += 2;
-                    if (aRental.DaysRented > 2)
-                        thisAmount += (aRental.DaysRented - 2) * 1.5;
-                    break;
-                case MovieType.NewRelease:
-                    thisAmount += aRental.DaysRented * 3;
-                    break;
-                case MovieType.Childrens:
-                    thisAmount += 1.5;
-                    if (aRental.DaysRented > 3)
-                        thisAmount += (aRental.DaysRented - 3) * 1.5;
-                    break;
-            }
-
-            return thisAmount;
         }
 
         public string Name

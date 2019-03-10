@@ -19,24 +19,7 @@ namespace refactoring
             string result = "Rental Record for " + Name + "\n";
             foreach (var each in _rentals)
             {
-                double thisAmount = 0;
-
-                switch (each.Movie.PriceCode)
-                {
-                    case MovieType.Regular:
-                        thisAmount += 2;
-                        if (each.DaysRented > 2)
-                            thisAmount += (each.DaysRented - 2) * 1.5;
-                        break;
-                    case MovieType.NewRelease:
-                        thisAmount += each.DaysRented * 3;
-                        break;
-                    case MovieType.Childrens:
-                        thisAmount += 1.5;
-                        if (each.DaysRented > 3)
-                            thisAmount += (each.DaysRented - 3) * 1.5;
-                        break;
-                }
+                var thisAmount = ThisAmount(each);
 
                 frequentRenterPoints++;
 
@@ -50,7 +33,31 @@ namespace refactoring
             result += "You earned " + frequentRenterPoints + " frequent renter points";
             return result;
         }
-        
+
+        private double ThisAmount(Rental each)
+        {
+            double thisAmount = 0;
+
+            switch (each.Movie.PriceCode)
+            {
+                case MovieType.Regular:
+                    thisAmount += 2;
+                    if (each.DaysRented > 2)
+                        thisAmount += (each.DaysRented - 2) * 1.5;
+                    break;
+                case MovieType.NewRelease:
+                    thisAmount += each.DaysRented * 3;
+                    break;
+                case MovieType.Childrens:
+                    thisAmount += 1.5;
+                    if (each.DaysRented > 3)
+                        thisAmount += (each.DaysRented - 3) * 1.5;
+                    break;
+            }
+
+            return thisAmount;
+        }
+
         public string Name
         {
             get { return _name; }

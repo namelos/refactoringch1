@@ -19,9 +19,7 @@ namespace refactoring
             string result = "Rental Record for " + Name + "\n";
             foreach (var each in _rentals)
             {
-                frequentRenterPoints++;
-
-                if ((each.Movie.PriceCode == MovieType.NewRelease) && each.DaysRented > 1) frequentRenterPoints++;
+                frequentRenterPoints += FrequentRenterPoints(each);
 
                 result += "\t" + each.Movie.Title + "\t" + each.GetCharge() + "\n";
                 totalAmount += each.GetCharge();
@@ -30,6 +28,12 @@ namespace refactoring
             result += "Amount owed is " + totalAmount + "\n";
             result += "You earned " + frequentRenterPoints + " frequent renter points";
             return result;
+        }
+
+        private int FrequentRenterPoints(Rental each)
+        {
+            if (each.Movie.PriceCode == MovieType.NewRelease && each.DaysRented > 1) return 2;
+            return 1;
         }
 
         public string Name

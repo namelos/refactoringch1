@@ -48,5 +48,8 @@ namespace refactoring
 
             return thisAmount;
         }
+        
+        public int GetFrequentRenterPoints(int daysRented) =>
+            PriceCode == MovieType.NewRelease && daysRented > 1 ? 2 : 1;
     }
 }

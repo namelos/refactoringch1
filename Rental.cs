@@ -11,6 +11,6 @@ namespace refactoring
         public int DaysRented { get; set; }
         public Movie Movie { get; }
         public double Charge => Movie.GetCharge(DaysRented);
-        public int FrequentRenterPoints => Movie.PriceCode == MovieType.NewRelease && DaysRented > 1 ? 2 : 1;
+        public int FrequentRenterPoints => Movie.GetFrequentRenterPoints(DaysRented);
     }
 }

@@ -14,7 +14,6 @@ namespace refactoring
 
         public string Statement()
         {
-            double totalAmount = 0;
             int frequentRenterPoints = 0;
             string result = "Rental Record for " + Name + "\n";
             foreach (var each in _rentals)
@@ -22,12 +21,18 @@ namespace refactoring
                 frequentRenterPoints += each.FrequentRenterPoints;
 
                 result += "\t" + each.Movie.Title + "\t" + each.Charge + "\n";
-                totalAmount += each.Charge;
             }
 
-            result += "Amount owed is " + totalAmount + "\n";
+            result += "Amount owed is " + GetTotalAmount() + "\n";
             result += "You earned " + frequentRenterPoints + " frequent renter points";
             return result;
+        }
+
+        private double GetTotalAmount()
+        {
+            double totalAmount = 0;
+            foreach (var each in _rentals) totalAmount += each.Charge;
+            return totalAmount;
         }
 
         public string Name
